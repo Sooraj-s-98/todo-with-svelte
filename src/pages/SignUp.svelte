@@ -19,7 +19,6 @@
       const account = await api.createAccount(signupData.email, signupData.password, signupData.name);
       await api.createEmailSession(signupData.email, signupData.password);
       user.update(() => account);
-      navigate("/");
     } catch (error) {
 
     }

@@ -3,8 +3,10 @@
   import { onMount } from "svelte";
   import SignUp from "./pages/SignUp.svelte";
   import Login from "./pages/Login.svelte";
+  import Home from "./pages/Home.svelte";
   import { user } from "./store/index";
   import api from "./api/index";
+  import "./style/index.css"
 
 
   export let url = "";
@@ -13,6 +15,7 @@
  async function fetchAccount(){
     const account = await api.getAccount();
     user.update(() => account);
+    navigate("/");
   }
 
 
@@ -28,7 +31,7 @@
 
   isLoading = false;
 
-  $: $user && console.log("user",$user)
+  $: $user===null &&  navigate("/login");
 </script>
 
 <main>
@@ -42,11 +45,12 @@
       {:else}
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
-          <Route path="/"  >
-            hello
-          </Route>
+        {#if $user}
+        <Route path="/" component={Home}  />
+        {/if}
       {/if}
     </div>
   </Router>
 
 </main>
+
