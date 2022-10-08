@@ -21,7 +21,6 @@
 
 
   onMount(async () => {
-    console.log("user", $user)
     if(!$user){
       fetchAccount()
     }

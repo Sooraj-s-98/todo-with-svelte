@@ -43,14 +43,14 @@ let api = {
     return api.provider().database.listDocuments(Server.database,Server.collectionID);
   },
 
-  updateDocument: (collectionId, documentId, data) => {
+  updateDocument: (documentId, data) => {
     return api
       .provider()
-      .database.updateDocument(Server.database, collectionId, documentId, data);
+      .database.updateDocument(Server.database,Server.collectionID, documentId, data);
   },
 
-  deleteDocument: (collectionId, documentId) => {
-    return api.provider().database.deleteDocument(Server.database, collectionId, documentId);
+  deleteDocument: (documentId) => {
+    return api.provider().database.deleteDocument(Server.database,Server.collectionID, documentId);
   },
 };
 

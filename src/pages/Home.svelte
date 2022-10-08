@@ -6,36 +6,58 @@
   import { user } from "../store/index";
 
   let content = "";
-  let tasks=[];
+  let tasks = [];
 
   async function logOut() {
-    await api.deleteCurrentSession();
-    user.update(() => null);
-    navigate("/")
+    try {
+      await api.deleteCurrentSession();
+      user.update(() => null);
+      navigate("/");
+    } catch (e) {}
   }
 
   async function handleAddTodo() {
-    const userId = $user["$id"];
-    if (!userId || !content) {
-      console.log("User id is null/empty");
-    } else {
-      const data = {
-        content: content,
-        isComplete: false,
-        date: new Date(),
-      };
+    try {
+      const userId = $user["$id"];
+      if (!userId || !content) {
+        console.log("User id is null/empty");
+      } else {
+        const data = {
+          content: content,
+          isComplete: false,
+          date: new Date(),
+        };
+        await api.createDocument(data);
+        content = "";
+        getTodoList();
+      }
+    } catch (e) {}
+  }
 
-      await api.createDocument(data);
-      content = "";
+  async function handleEditTodo(task) {
+    try {
+      const data = {
+        content: task.content,
+        isComplete: true,
+        date: task.date,
+      };
+      await api.updateDocument(task["$id"], data);
       getTodoList();
-    }
+    } catch {}
   }
 
   async function getTodoList() {
-    const listDocumentRes=await api.listDocuments();
-    if(listDocumentRes.documents){
-        tasks=listDocumentRes.documents;
-    }
+    try {
+      const listDocumentRes = await api.listDocuments();
+      if (listDocumentRes.documents) {
+        tasks = listDocumentRes.documents;
+      }
+    } catch (e) {}
+  }
+
+  async function handleDeleteTask(task) {
+    await api.deleteDocument(task["$id"]);
+    getTodoList();
   }
 
   onMount(async () => {
@@ -80,11 +102,12 @@
             </div>
           </form>
           {#each tasks as task}
-
-            <TodoItem {task}/>
-            {/each}
-
-          <div id="search" />
+            <TodoItem
+              {task}
+              on:editTask={(ev) => handleEditTodo(ev.detail.task)}
+              on:deleteTask={(ev) => handleDeleteTask(ev.detail.task)}
+            />
+          {/each}
         </div>
       </div>
       <div class="error" />
