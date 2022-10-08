@@ -6,12 +6,12 @@
   import { user } from "../store/index";
 
   let content = "";
-  let tasks=[];
+  let tasks = [];
 
   async function logOut() {
     await api.deleteCurrentSession();
     user.update(() => null);
-    navigate("/")
+    navigate("/");
   }
 
   async function handleAddTodo() {
@@ -31,11 +31,26 @@
     }
   }
 
+  async function handleEditTodo(task) {
+    const data = {
+      content: task.content,
+        isComplete: true,
+        date: task.date,
+    };
+    await api.updateDocument(task["$id"],data);
+    getTodoList();
+  }
+
   async function getTodoList() {
-    const listDocumentRes=await api.listDocuments();
-    if(listDocumentRes.documents){
-        tasks=listDocumentRes.documents;
+    const listDocumentRes = await api.listDocuments();
+    if (listDocumentRes.documents) {
+      tasks = listDocumentRes.documents;
     }
+  }
+
+  async function handleDeleteTask(task){
+      await api.deleteDocument(task["$id"]);
+      getTodoList();
   }
 
   onMount(async () => {
@@ -80,11 +95,13 @@
             </div>
           </form>
           {#each tasks as task}
+            <TodoItem
+              {task}
+              on:editTask={(ev) =>handleEditTodo(ev.detail.task) }
+              on:deleteTask={(ev) =>handleDeleteTask(ev.detail.task) }
+            />
+          {/each}
 
-            <TodoItem {task}/>
-            {/each}
-
-          <div id="search" />
         </div>
       </div>
       <div class="error" />
