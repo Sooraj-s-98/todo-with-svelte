@@ -4,6 +4,7 @@
   import SignUp from "./pages/SignUp.svelte";
   import Login from "./pages/Login.svelte";
   import Home from "./pages/Home.svelte";
+  import PrivateRoute from "./components/PrivateRoute.svelte";
   import { user } from "./store/index";
   import api from "./api/index";
   import "./style/index.css"
@@ -31,7 +32,6 @@
 
   isLoading = false;
 
-  $: $user===null &&  navigate("/login");
 </script>
 
 <main>
@@ -44,10 +44,11 @@
         </div>
       {:else}
         <Route path="/signup" component={SignUp} />
-        <Route path="/login" component={Login} />
-        {#if $user}
-        <Route path="/" component={Home}  />
-        {/if}
+        <Route path="/login" component={Login} /> 
+        <PrivateRoute path="/"  >
+           <Home />
+        </PrivateRoute>
+  
       {/if}
     </div>
   </Router>

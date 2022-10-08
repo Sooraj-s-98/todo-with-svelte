@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { navigate } from "svelte-routing";
   import TodoItem from "../components/TodoItem.svelte";
   import api from "../api/index";
   import { user } from "../store/index";
@@ -10,6 +11,7 @@
   async function logOut() {
     await api.deleteCurrentSession();
     user.update(() => null);
+    navigate("/")
   }
 
   async function handleAddTodo() {
