@@ -2,7 +2,7 @@
 
 A simple todo app built with Appwrite and Vue
 
-If you simply want to try out the App, go ahead and check out the demo at https://appwrite-todo-with-vue.vercel.app/
+If you simply want to try out the App, go ahead and check out the demo at https://todo-with-svelte.up.railway.app/
 
 ## 🎬 Getting Started
 
@@ -35,8 +35,8 @@ Use the following buttons to deploy to your favourite hosting provider in one cl
 Follow these instructions to run the demo app locally
 
 ```sh
-$ git clone https://github.com/appwrite/todo-with-vue
-$ cd todo-with-vue
+$ git clone https://github.com/Sooraj-s-98/todo-with-svelte
+$ cd todo-with-svelte
 ```
 
 Run the following command to generate your `.env` vars  
