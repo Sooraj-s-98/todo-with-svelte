@@ -22,6 +22,7 @@
       if (!userId || !content) {
         console.log("User id is null/empty");
       } else {
+        const read = [`user:${userId}`];
         const data = {
           content: content,
           isComplete: false,
@@ -93,12 +94,6 @@
                 title="Create"
                 on:click={handleAddTodo}>Create</button
               >
-              <button
-                type="button"
-                id="search-task"
-                class="btn btn-success ms-2"
-                title="Search">Search</button
-              >
             </div>
           </form>
           {#each tasks as task}
@@ -114,7 +109,9 @@
       <div class="clear__all btn btn-danger btn-lg d-none">Clear All</div>
     </div>
   </div>
-  <button type="button" class="btn btn-primary ms-2" on:click={logOut}
-    ><i class="fa fa-sign-out" /></button
-  >
+  <div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-primary ms-2" on:click={logOut}
+      >Logout <i class="fa fa-sign-out" /></button
+    >
+  </div>
 </div>
