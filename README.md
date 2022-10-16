@@ -1,8 +1,25 @@
 # 🔖 Todo With Svelte
 
-A simple todo app built with Appwrite and Vue
+A simple todo app built with Appwrite and Svelte
 
 If you simply want to try out the App, go ahead and check out the demo at https://todo-with-svelte.up.railway.app/
+
+https://user-images.githubusercontent.com/52352285/196016987-42fd4eeb-b8b1-4751-8cca-49cd8ec312f8.mov
+
+We need to make a few configuration changes to your Appwrite server.
+
+1. Add a new Web App in Appwrite and enter the endpoint of your website (localhost, <project-name>.vercel.app etc)
+
+<img width="1297" alt="2app" src="https://user-images.githubusercontent.com/52352285/196017379-04e83421-6b04-4c38-9760-9614c4354ee4.png">
+
+2. Create a new collection with the following properties
+
+<img width="1079" alt="svelte1" src="https://user-images.githubusercontent.com/52352285/196017118-b67844d0-7d30-457e-887d-fddb72cc7eee.png">
+
+3. Add the following permissions to your collection.
+
+<img width="737" alt="3" src="https://user-images.githubusercontent.com/52352285/196017478-8a80c7cd-3837-4ae0-8470-f871e2500e31.png">
+
 
 ## 🎬 Getting Started
 
@@ -22,13 +39,6 @@ You have two options to deploy the front-end and we will cover both of them here
 * VITE_APP_PROJECT - Your Appwrite project ID
 * VITE_APP_COLLECTION_ID - Your Appwrite collection ID 
 * VITE_APP_DATABASE_ID - Your Appwrite database ID
-
-### **Deploy to a Static Hosting Provider**
-
-Use the following buttons to deploy to your favourite hosting provider in one click! We support Vercel, Netlify and DigitalOcean. You will need to enter the environment variables above when prompted.
-
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/YMe32a?referralCode=Yh2rJK)
-
 
 ### **Run locally**
 
